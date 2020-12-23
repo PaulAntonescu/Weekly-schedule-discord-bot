@@ -11,6 +11,7 @@ bot_schedule = {
 	3: ["EEC 383 Digital Systems", "https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstleyVEVO", "10:00am - 11:15am", "https://www.csuohio.edu/sites/default/files/CSU-Seal-Reversed.png", 10, 00, "13"],
 	4: ["EEC 494 Senior Design 2.woh", "https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstleyVEVO", "12:30pm - 1:45pm", "https://www.csuohio.edu/sites/default/files/CSU-Seal-Reversed.png", 12, 30, "13"],
 	5: ["EEC 408 Internet Programming", "https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstleyVEVO", "2:00pm - 3:15pm", "https://www.csuohio.edu/sites/default/files/CSU-Seal-Reversed.png", 2+12, 00, "13"],
+	6: ["Test", "https://www.youtube.com/watch?v=j0lN0w5HVT8&ab_channel=OblivionFallAfterDark", "Disply time", "https://www.gimmesomeoven.com/wp-content/uploads/2020/04/Easy-Meatball-Recipe-3-1.jpg", 6+12, 00, "01234"]
 }
 
 
@@ -53,11 +54,12 @@ def get_second(hour, minutes):
 # Send message to channel
 async def alert(d):
 	channel = discord.utils.get(bot.get_all_channels(), name="carl-time")
-
-	embed = discord.Embed(title=bot_schedule[d][0], url=bot_schedule[d][1], description="10:15am - 11:05am", color=0xff00ea)
-	embed.set_author(name="Pauli Wally")
-	embed.set_thumbnail(url=bot_schedule[d][3])
-	await channel.send(embed=embed)
+	mod = discord.utils.get(channel.guild.roles, name="mod")
+	embed_message = discord.Embed(title=bot_schedule[d][0], url=bot_schedule[d][1], description=bot_schedule[d][2]+mod.mention, color=0xff00ea)
+	embed_message.set_author(name="Pauli Wally")
+	embed_message.set_thumbnail(url=bot_schedule[d][3])
+	
+	await channel.send(embed=embed_message)
 
 
 # print when up
@@ -83,4 +85,4 @@ async def on_message(message):
 		await message.channel.send("Testing")
 
 
-bot.run('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+bot.run('XXXXXXXXXXXXXXXXXXXXX')
