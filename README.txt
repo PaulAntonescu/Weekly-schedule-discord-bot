@@ -12,6 +12,9 @@ Set up:
 	bot.run("Put discord bot token");
 	If you do not know how to get a token go to discords developers page and make one.
 
+	To Start the alarm/s type "start-alarm" to the bot
+		The bot will respond by sending "starting alarms"
+
 	Install Discord py api
 		Make sure you have the correct python version
 
