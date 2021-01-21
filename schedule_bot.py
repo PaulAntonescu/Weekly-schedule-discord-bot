@@ -1,3 +1,4 @@
+@@ -0,0 +1,86 @@
 import asyncio
 import discord
 import time
@@ -11,7 +12,6 @@ bot_schedule = {
 	3: ["EEC 383 Digital Systems", "https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstleyVEVO", "10:00am - 11:15am", "https://www.csuohio.edu/sites/default/files/CSU-Seal-Reversed.png", 10, 00, "13"],
 	4: ["EEC 494 Senior Design 2.woh", "https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstleyVEVO", "12:30pm - 1:45pm", "https://www.csuohio.edu/sites/default/files/CSU-Seal-Reversed.png", 12, 30, "13"],
 	5: ["EEC 408 Internet Programming", "https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstleyVEVO", "2:00pm - 3:15pm", "https://www.csuohio.edu/sites/default/files/CSU-Seal-Reversed.png", 2+12, 00, "13"],
-	6: ["Test", "https://www.youtube.com/watch?v=j0lN0w5HVT8&ab_channel=OblivionFallAfterDark", "Disply time", "https://www.gimmesomeoven.com/wp-content/uploads/2020/04/Easy-Meatball-Recipe-3-1.jpg", 6+12, 00, "01234"]
 }
 
 
@@ -58,22 +58,16 @@ async def alert(d):
 	embed_message = discord.Embed(title=bot_schedule[d][0], url=bot_schedule[d][1], description=bot_schedule[d][2]+mod.mention, color=0xff00ea)
 	embed_message.set_author(name="Pauli Wally")
 	embed_message.set_thumbnail(url=bot_schedule[d][3])
-	
+
 	await channel.send(embed=embed_message)
+	return 0
 
 
 # print when up
 @bot.event
 async def on_ready():
-	start_up_alarm()
+	#asyncio.gather(start_up_alarm())
 	print('im in as {}'.format(bot.user))
-
-	while True:
-		# sleep until 12 am tomorrow (86400 seconds)
-		current_time_in_seconds = time.localtime().tm_hour*60*60 + time.localtime().tm_min*60
-		sleep_till = 86400 - current_time_in_seconds
-		await asyncio.sleep(sleep_till)
-		start_up_alarm()
 
 
 # Get messages
@@ -84,5 +78,16 @@ async def on_message(message):
 	if message.content.lower() == "test":
 		await message.channel.send("Testing")
 
+	elif message.content.lower() == "start-alarm":
+		send_reply = "starting alarms"
+		await message.channel.send(send_reply)
+		while True:
+			start_up_alarm()
 
-bot.run('XXXXXXXXXXXXXXXXXXXXX')
+			# sleep until 12 am tomorrow (86400 seconds)
+			current_time_in_seconds = time.localtime().tm_hour*60*60 + time.localtime().tm_min*60
+			sleep_till = 86400 - current_time_in_seconds
+			await asyncio.sleep(sleep_till)
+
+
+bot.run('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
